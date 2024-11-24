@@ -60,10 +60,8 @@ buttons.addEventListener('click', (e) => {
             displayOperations.textContent += ` ${btn.id} `;
 
         } else {
-            
-            result = operate(parseInt(strFirstNum), operation, parseInt(strSecondNum));
+            result = roundToDecimal(operate(+strFirstNum, operation, +strSecondNum), 2);
             strFirstNum = result;
-            console.log(result);
             strSecondNum = ''
             operation = btn.id;
             displayOperations.textContent = `${result} ${btn.id} `;
@@ -86,7 +84,7 @@ buttons.addEventListener('click', (e) => {
 
         } else {
 
-            result = operate(parseInt(strFirstNum), operation, parseInt(strSecondNum));
+            result = roundToDecimal(operate(+strFirstNum, operation, +strSecondNum), 2);
             strFirstNum = result;
             strSecondNum = '';
             displayOperations.textContent = result;
