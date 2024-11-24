@@ -30,6 +30,11 @@ function operate(a, operator, b){
     return result;
 }
 
+function roundToDecimal(value, decimalPlaces) {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.round(value * factor) / factor;
+}
+
 const buttons = document.querySelector('.buttons');
 const displayOperations = document.querySelector('.operations-display');
 let strFirstNum = '';
@@ -37,21 +42,43 @@ let strSecondNum = '';
 let auxCount = 1;
 let result = 0;
 let operation = '';
+let enabeDot = true;
 
 buttons.addEventListener('click', (e) => {
     const btn = e.target;
 
     if(btn.classList.contains('numbers')){
 
-        if(auxCount == 1){
-            strFirstNum += btn.id;
+        if(btn.id == '.'){
+
+            if(enabeDot){
+
+                if(auxCount == 1){
+                    strFirstNum += btn.id;
+                } else {
+                    strSecondNum += btn.id;
+                }
+
+                displayOperations.textContent += btn.id;
+
+                enabeDot = false;
+
+            }
+            
         } else {
-            strSecondNum += btn.id;
+
+            if(auxCount == 1){
+                strFirstNum += btn.id;
+            } else {
+                strSecondNum += btn.id;
+            }
+    
+            displayOperations.textContent += btn.id;
         }
 
-        displayOperations.textContent += btn.id;
-
     } else if(btn.classList.contains('operators')){
+
+        enabeDot = true;
 
         if(auxCount == 1){
 
@@ -72,11 +99,15 @@ buttons.addEventListener('click', (e) => {
         
     } else if(btn.id === 'clear'){
 
+        enabeDot = true;
+        
         displayOperations.textContent = '';
         strFirstNum = '';
         strSecondNum = 0;
 
     } else if (btn.id === '='){
+
+        enabeDot = true;
 
         if(strSecondNum === '' || strFirstNum === ''){
 
