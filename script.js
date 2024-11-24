@@ -43,11 +43,17 @@ let auxCount = 1;
 let result = 0;
 let operation = '';
 let enabeDot = true;
+let continuation = false;
 
 buttons.addEventListener('click', (e) => {
     const btn = e.target;
 
     if(btn.classList.contains('numbers')){
+        if(continuation == true){
+            continuation = false;
+            displayOperations.textContent = '';
+            strFirstNum = '';
+        }
 
         if(btn.id == '.'){
 
@@ -77,6 +83,9 @@ buttons.addEventListener('click', (e) => {
         }
 
     } else if(btn.classList.contains('operators')){
+        if(continuation == true){
+            continuation = false;
+        }
 
         enabeDot = true;
 
@@ -120,7 +129,11 @@ buttons.addEventListener('click', (e) => {
             strSecondNum = '';
             displayOperations.textContent = result;
             auxCount = 1;
+            continuation = true;
 
         }
+
+        
+
     }
 });
